@@ -24,27 +24,3 @@ class ExerciseDropDown extends StatelessWidget {
         onChanged: onChanged);
   }
 }
-
-class InputFieldWidget extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final TextInputType inputType;
-
-  const InputFieldWidget(
-      {super.key,
-      required this.controller,
-      required this.label,
-      required this.inputType});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-      ),
-      keyboardType: inputType,
-    );
-  }
-}

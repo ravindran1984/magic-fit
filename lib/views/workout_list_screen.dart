@@ -17,7 +17,7 @@ class WorkoutListScreen extends StatelessWidget {
             // Add new workout functionality
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const WorkoutScreen()),
+              MaterialPageRoute(builder: (context) => WorkoutScreen()),
             );
           },
           icon: const Icon(
