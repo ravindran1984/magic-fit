@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:magic_fit_workout/models/workout.dart';
+import 'package:magic_fit_workout/models/workout_set.dart';
 import 'package:magic_fit_workout/views/workout_list_screen.dart';
 
-void main() {
+void main() async {
+//Initialize Hive
+  await Hive.initFlutter();
+
+  // Register the adapter
+  Hive.registerAdapter(WorkoutAdapter());
+  Hive.registerAdapter(WorkoutSetAdapter());
+
+  //Open a box for storing workouts
+  await Hive.openBox<Workout>('workoutsBox');
+
   runApp(const MyApp());
+
+/*
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => WorkoutViewModel()..loadSets()),
+  ], child: const MyApp()));
+  */
 }
 
 class MyApp extends StatelessWidget {

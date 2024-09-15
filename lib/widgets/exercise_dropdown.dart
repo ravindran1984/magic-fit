@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:magic_fit_workout/constants/constants.dart';
+import 'package:provider/provider.dart';
+import '../constants/constants.dart';
+import '../viewmodel/workout_provider.dart';
 
 class ExerciseDropDown extends StatelessWidget {
-  final String? selectedExercise;
   final List<String> exerciseList;
   final ValueChanged<String?> onChanged;
 
-  const ExerciseDropDown(
-      {super.key,
-      this.selectedExercise,
-      required this.exerciseList,
-      required this.onChanged});
+  const ExerciseDropDown({
+    super.key,
+    required this.exerciseList,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final workoutProvider = Provider.of<WorkoutProvider>(context);
+
     return DropdownButtonFormField<String>(
-        decoration: const InputDecoration(
-            labelText: AppStrings.exerciseLabel, border: OutlineInputBorder()),
-        value: selectedExercise,
-        items: exerciseList.map((String exercise) {
-          return DropdownMenuItem<String>(
-              value: exercise, child: Text(exercise));
-        }).toList(),
-        onChanged: onChanged);
+      value: workoutProvider.selectedExercise,
+      onChanged: (newValue) => workoutProvider.setSelectedExercise(newValue),
+      items: exerciseList.map((exercise) {
+        return DropdownMenuItem<String>(
+          value: exercise,
+          child: Text(exercise),
+        );
+      }).toList(),
+      decoration: const InputDecoration(
+          labelText: AppStrings.exerciseLabel, border: OutlineInputBorder()),
+    );
   }
 }

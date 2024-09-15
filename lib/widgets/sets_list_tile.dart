@@ -4,7 +4,7 @@ import 'package:magic_fit_workout/widgets/delete_button.dart';
 import 'package:magic_fit_workout/widgets/edit_button.dart';
 
 class SetsListTile extends StatelessWidget {
-  final WrokoutSet set;
+  final WorkoutSet set;
   final int setIndex;
   final VoidCallback onEditPressed;
   final VoidCallback onDeletePressed;
