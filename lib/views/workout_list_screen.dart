@@ -17,7 +17,7 @@ class WorkoutListScreen extends StatelessWidget {
             // Add new workout functionality
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const WorkoutScreen()),
+              MaterialPageRoute(builder: (context) => WorkoutScreen()),
             );
           },
           icon: const Icon(
@@ -28,7 +28,7 @@ class WorkoutListScreen extends StatelessWidget {
             "Add Workout",
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.deepPurple, // Button color
+          //backgroundColor: Colors.deepPurple, // Button color
         ));
   }
 }

@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:magic_fit_workout/models/workout.dart';
+import 'package:magic_fit_workout/models/workout_set.dart';
 import 'package:magic_fit_workout/views/workout_list_screen.dart';
 
-void main() {
+void main() async {
+//Initialize Hive
+  await Hive.initFlutter();
+
+  // Register the adapter
+  Hive.registerAdapter(WorkoutAdapter());
+  Hive.registerAdapter(WorkoutSetAdapter());
+
+  //Open a box for storing workouts
+  await Hive.openBox<Workout>('workoutsBox');
+
   runApp(const MyApp());
+
+/*
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => WorkoutViewModel()..loadSets()),
+  ], child: const MyApp()));
+  */
 }
 
 class MyApp extends StatelessWidget {
@@ -15,8 +34,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          // This is the theme of your application.
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: const ColorScheme(
+            primary: Colors.deepPurple,
+            onPrimary: Colors.white,
+            secondary: Colors.white,
+            onSecondary: Colors.black,
+            error: Colors.redAccent,
+            onError: Colors.white,
+            surface: Colors.white,
+            onSurface: Colors.black,
+            brightness: Brightness.light,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurple,
+            foregroundColor: Colors.white,
+          )),
           useMaterial3: true,
           fontFamily: GoogleFonts.roboto().fontFamily,
 
@@ -26,7 +59,7 @@ class MyApp extends StatelessWidget {
           // Text Theme
           textTheme: TextTheme(
             titleLarge: const TextStyle(
-                fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
             titleMedium: const TextStyle(
                 fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
             bodyLarge: TextStyle(
