@@ -12,6 +12,7 @@ class AppStrings {
   static const String repetitionsLabel = 'Repetitions';
   static const String exerciseDropdownHint = 'Select an exercise';
   static const String saveWorkout = 'Save Workout';
+  static const String addWorkout = 'Add Workout';
   static const String addSet = 'Add Set';
   static const String updateSet = 'Update Set';
   static const String workoutTitle = 'Add/Edit Workout';
@@ -23,4 +24,6 @@ class AppStrings {
   static const String saveButtonLabel = 'Save Workout';
   static const String workoutValidMessage = 'Workout saved successfully!';
   static const String workoutInvalidMessage = 'Please add at least one set';
+  static const String noWorkoutSaved = 'No workouts saved';
+  static const String workoutDeleted = 'Workout deleted';
 }

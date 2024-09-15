@@ -15,6 +15,11 @@ String formatDateAndDay(DateTime savedAt) {
   }
 }
 
+String getFormattedDateToday() {
+  final formatter = DateFormat('d, MMMM yyyy'); // Example: 15, September 2024
+  return formatter.format(DateTime.now());
+}
+
 String getFormattedTimeOnly(DateTime savedAt) {
   //final now = DateTime.now();
   final DateFormat timeFormat = DateFormat('hh:mm a'); // Example: 02:30 PM
