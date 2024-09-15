@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:magic_fit_workout/constants/constants.dart';
 
 class AddSetButton extends StatelessWidget {
-  final VoidCallback onPressed; // Function to handle button press
-  const AddSetButton({super.key, required this.onPressed});
+  final VoidCallback onPressed;
+
+  final String? btnTitle; // Function to handle button press
+
+  const AddSetButton({super.key, required this.onPressed, this.btnTitle});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: const Text(AppStrings.addSet),
-    );
+    return ElevatedButton(onPressed: onPressed, child: Text(btnTitle!));
   }
 }

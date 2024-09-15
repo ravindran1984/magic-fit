@@ -28,7 +28,7 @@ class WorkoutListScreen extends StatelessWidget {
             "Add Workout",
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.deepPurple, // Button color
+          //backgroundColor: Colors.deepPurple, // Button color
         ));
   }
 }

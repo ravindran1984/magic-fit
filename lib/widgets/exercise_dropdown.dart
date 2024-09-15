@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magic_fit_workout/constants/constants.dart';
 
 class ExerciseDropDown extends StatelessWidget {
   final String? selectedExercise;
@@ -15,7 +16,7 @@ class ExerciseDropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
         decoration: const InputDecoration(
-            labelText: 'Exercise', border: OutlineInputBorder()),
+            labelText: AppStrings.exerciseLabel, border: OutlineInputBorder()),
         value: selectedExercise,
         items: exerciseList.map((String exercise) {
           return DropdownMenuItem<String>(
