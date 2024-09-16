@@ -74,38 +74,48 @@ class WorkoutProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveWorkout(BuildContext context) async {
-    final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
+  Future<void> saveWorkout(BuildContext? context) async {
+    try {
+      final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
 
-    if (isEditing && editingWorkout != null) {
-      // Use Hive key to update the existing workout
-      await workoutBox.put(editingWorkout!.key, editingWorkout!);
+      if (isEditing && editingWorkout != null) {
+        // Use Hive key to update the existing workout
+        await workoutBox.put(editingWorkout!.key, editingWorkout!);
+        if (context != null) {
+          // Show the updated values in SnackBar
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text(
+            AppStrings.workoutUpdateMessage,
+          )));
+        }
+      } else {
+        // Add a new workout
+        Workout newWorkout = Workout(
+          workoutName:
+              AppStrings.workoutName, // Add your workout name logic here
+          savedAt: DateTime.now(),
+          sets: sets,
+        );
 
-      // Show the updated values in SnackBar
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-        AppStrings.workoutUpdateMessage,
-      )));
-    } else {
-      // Add a new workout
-      Workout newWorkout = Workout(
-        workoutName: AppStrings.workoutName, // Add your workout name logic here
-        savedAt: DateTime.now(),
-        sets: sets,
-      );
+        // Save the new workout to Hive
+        await workoutBox.add(newWorkout);
 
-      // Save the new workout to Hive
-      await workoutBox.add(newWorkout);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text(AppStrings.workoutValidMessage)),
-      );
+        if (context != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text(AppStrings.workoutValidMessage)),
+          );
+        }
+      }
+    } catch (e) {
+      print('Error accessing Hive box: $e');
     }
 
     notifyListeners();
     // Clear form after saving and navigate back
     clearForm();
-    Navigator.pop(context);
+    if (context != null) {
+      Navigator.pop(context);
+    }
   }
 
   void clearForm() {

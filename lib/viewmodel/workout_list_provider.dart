@@ -13,8 +13,13 @@ class WorkoutListProvider extends ChangeNotifier {
   }
 
   Future<void> _init() async {
-    workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
-    notifyListeners();
+    try {
+      workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
+      notifyListeners();
+    } catch (e) {
+      // Navigate back to WorkoutListScreen
+      print('Error accessing Hive box: $e');
+    }
   }
 
   List<Workout> get workouts {
@@ -39,8 +44,13 @@ class WorkoutListProvider extends ChangeNotifier {
   }
 
   void loadWorkouts() {
-    final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
-    workoutsList = workoutBox.values.toList();
-    notifyListeners(); // Notify listeners to update the UI
+    try {
+      final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
+      workoutsList = workoutBox.values.toList();
+      notifyListeners(); // Notify listeners to update the UI
+    } catch (e) {
+      // Navigate back to WorkoutListScreen
+      print('Error accessing Hive box: $e');
+    }
   }
 }
