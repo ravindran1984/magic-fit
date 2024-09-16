@@ -36,5 +36,12 @@ intl - used for formatting date time
 
 few other packages are used under dev dependencies like hive generator, build runner for hive code generators and integration_test
 
+# Screenshots
+
+### Workout Screen
+![Workout Screen](https://github.com/user-attachments/assets/ab035476-aa49-4d05-8cbe-ca7f8fb3c5d9)
+![Workout List Screen](https://github.com/user-attachments/assets/5bd3678d-4879-4712-b5ab-844bae147999)
+![Workout Detail Screen](https://github.com/user-attachments/assets/4f6ce19e-59bb-4d9b-b56f-d82610162c9a)
+
 
 
