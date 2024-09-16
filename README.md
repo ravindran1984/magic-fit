@@ -21,6 +21,7 @@ Model: Represents the data structure. For example, Workout and WorkoutSet models
 View: The UI components that display data to the user. For example, WorkoutScreen and WorkoutDetailScreen.
 ViewModel: Handles business logic and interacts with the model. For example, WorkoutProvider and WorkoutDetailProvider manage state and logic.
 
+
 # Provider
 
 Provider is used for state management in this app. It allows efficient and scalable management of state across the application
