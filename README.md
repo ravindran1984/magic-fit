@@ -28,10 +28,10 @@ Provider is used for state management in this app. It allows efficient and scala
 # Third-party packages
 Following third party packages are used in this application: 
 
-provider : used for state management
-Hive : used for offline storage of workouts
-google fonts : provides a collection of fonts that can be used in the application 
-intl : used for formatting date time
+provider - used for state management,
+Hive - used for offline storage of workouts,
+google fonts - provides a collection of fonts that can be used in the application, 
+intl - used for formatting date time
 
 few other packages are used under dev dependencies like hive generator, build runner for hive code generators and integration_test
 
