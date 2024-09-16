@@ -12,9 +12,13 @@ class WorkoutDetailProvider extends ChangeNotifier {
 
   Future<void> setWorkout(int index) async {
     _workoutIndex = index;
-    final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
-    _selectedWorkout = workoutBox.getAt(index);
-    notifyListeners();
+    try {
+      final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
+      _selectedWorkout = workoutBox.getAt(index);
+      notifyListeners();
+    } catch (e) {
+      print('Error accessing Hive box: $e');
+    }
   }
 
 /*
@@ -27,13 +31,18 @@ class WorkoutDetailProvider extends ChangeNotifier {
   Future<void> deleteWorkout(BuildContext context) async {
     if (_workoutIndex == null || _selectedWorkout == null) return;
 
-    final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
-    await workoutBox.deleteAt(_workoutIndex!);
-    // After the deletion completes, navigate back
-    if (context.mounted) {
-      // Ensure the context is still valid
-      Navigator.pop(context);
-    } // Navigate back to WorkoutListScreen
+    try {
+      final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
+      await workoutBox.deleteAt(_workoutIndex!);
+      // After the deletion completes, navigate back
+      if (context.mounted) {
+        // Ensure the context is still valid
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      // Navigate back to WorkoutListScreen
+      print('Error accessing Hive box: $e');
+    }
   }
 
   Future<void> editWorkout(BuildContext context) async {
