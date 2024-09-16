@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:magic_fit_workout/constants/constants.dart';
-import 'package:magic_fit_workout/models/workout.dart';
-import 'package:magic_fit_workout/models/workout_set.dart';
+import 'package:provider/provider.dart';
+
+import '../constants/constants.dart';
+import '../models/workout_set.dart';
+import '../viewmodel/workout_provider.dart';
 
 class SaveWorkoutButton extends StatelessWidget {
   final List<WorkoutSet> sets;
@@ -20,14 +21,15 @@ class SaveWorkoutButton extends StatelessWidget {
       width: double.infinity, // Full-width button
       child: ElevatedButton(
         onPressed: () async {
-          // Logic to save the workout
           if (sets.isNotEmpty) {
-            // Add offline storage
-            await _saveWorkout('Workout', sets);
+            final workoutProvider =
+                Provider.of<WorkoutProvider>(context, listen: false);
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text(AppStrings.workoutValidMessage)),
-            );
+            // Set the current sets in WorkoutProvider
+            workoutProvider.updateWorkoutSets(sets);
+
+            // Save the workout with updated sets
+            await workoutProvider.saveWorkout(context);
 
             // Notify parent widget to clear the form after saving
             onWorkoutSaved();
@@ -41,11 +43,4 @@ class SaveWorkoutButton extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> _saveWorkout(String workoutName, List<WorkoutSet> sets) async {
-  final workoutBox = Hive.box<Workout>('workoutsBox');
-  final workout =
-      Workout(workoutName: workoutName, sets: sets, savedAt: DateTime.now());
-  await workoutBox.add(workout);
 }

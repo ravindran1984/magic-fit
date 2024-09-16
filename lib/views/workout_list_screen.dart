@@ -4,6 +4,8 @@ import 'package:magic_fit_workout/viewmodel/workout_list_provider.dart';
 import 'package:magic_fit_workout/widgets/workout_list_item.dart';
 import 'package:provider/provider.dart';
 import '../utils/datetime_formatter.dart';
+import '../viewmodel/workout_detail_provider.dart';
+import 'workout_detail_screen.dart';
 
 class WorkoutListScreen extends StatelessWidget {
   const WorkoutListScreen({super.key});
@@ -98,12 +100,22 @@ class WorkoutListScreen extends StatelessWidget {
                             ),
                           ),
                           child: WorkoutListItem(
-                            workout: workout,
-                            workoutIndex: index,
-                            onTap: () {
-                              viewModel.openWorkoutDetailScreen(context);
-                            },
-                          ),
+                              workout: workout,
+                              workoutIndex: index,
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChangeNotifierProvider(
+                                      create: (_) => WorkoutDetailProvider()
+                                        ..setWorkout(index),
+                                      child: const WorkoutDetailScreen(),
+                                    ),
+                                  ),
+                                );
+                                viewModel.loadWorkouts();
+                              }),
                         );
                       },
                     ),

@@ -10,7 +10,7 @@ class ExerciseDropDown extends StatelessWidget {
   const ExerciseDropDown({
     super.key,
     required this.exerciseList,
-    required this.onChanged,
+    required this.onChanged, String? selectedExercise,
   });
 
   @override

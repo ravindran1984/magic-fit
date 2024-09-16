@@ -22,8 +22,14 @@ class AppStrings {
   static const String repsValid = 'Enter a valid weight';
   static const String exerciseEmpty = 'Please select an exercise';
   static const String saveButtonLabel = 'Save Workout';
-  static const String workoutValidMessage = 'Workout saved successfully!';
+  static const String workoutValidMessage = 'Workout created successfully!';
   static const String workoutInvalidMessage = 'Please add at least one set';
+  static const String workoutUpdateMessage = 'Workout updated successfully!';
   static const String noWorkoutSaved = 'No workouts saved';
   static const String workoutDeleted = 'Workout deleted';
+  static const String workoutDetail = 'Workout Detail';
+  static const String workoutBox = 'workoutsBox';
+  static const String workoutName = 'Workout';
+  static const String textEdit = 'Edit';
+  static const String textDelete = 'Delete';
 }

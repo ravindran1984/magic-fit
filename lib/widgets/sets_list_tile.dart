@@ -19,7 +19,7 @@ class SetsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Set #${setIndex + 1}'),
+      //title: Text('Set #${setIndex + 1}'),
       subtitle:
           Text('${set.exercise} - ${set.weight} kg, ${set.repetitions} reps'),
       trailing: Row(
