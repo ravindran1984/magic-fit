@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:magic_fit_workout/models/workout.dart';
-
-import '../views/workout_detail_screen.dart';
 import '../views/workout_screen.dart';
 
 class WorkoutListProvider extends ChangeNotifier {
   late Box<Workout> workoutBox;
+  List<Workout> workoutsList = [];
 
   WorkoutListProvider() {
     _init();
@@ -24,14 +23,8 @@ class WorkoutListProvider extends ChangeNotifier {
   void openWorkoutScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const WorkoutScreen()),
-    ).then((_) => _refreshData()); // Refresh data when coming back
-  }
-
-  void openWorkoutDetailScreen(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const WorkoutDetailScreen()),
+      MaterialPageRoute(
+          builder: (context) => const WorkoutScreen(isEditing: false)),
     ).then((_) => _refreshData()); // Refresh data when coming back
   }
 
@@ -42,5 +35,11 @@ class WorkoutListProvider extends ChangeNotifier {
 
   void _refreshData() {
     notifyListeners(); // Notify listeners to rebuild the UI
+  }
+
+  void loadWorkouts() {
+    final workoutBox = Hive.box<Workout>('workoutsBox');
+    workoutsList = workoutBox.values.toList();
+    notifyListeners(); // Notify listeners to update the UI
   }
 }

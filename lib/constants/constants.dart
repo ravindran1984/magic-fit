@@ -26,4 +26,5 @@ class AppStrings {
   static const String workoutInvalidMessage = 'Please add at least one set';
   static const String noWorkoutSaved = 'No workouts saved';
   static const String workoutDeleted = 'Workout deleted';
+  static const String workoutDetail = 'Workout Detail';
 }

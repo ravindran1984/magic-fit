@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:magic_fit_workout/models/workout.dart';
 import 'package:provider/provider.dart';
 import 'package:magic_fit_workout/constants/constants.dart';
 import 'package:magic_fit_workout/widgets/add_set_button.dart';
@@ -12,12 +13,21 @@ import '../utils/form_validators.dart';
 import '../viewmodel/workout_provider.dart';
 
 class WorkoutScreen extends StatelessWidget {
-  const WorkoutScreen({super.key});
+  final bool isEditing;
+  final Workout? workout; // Pass the workout details if editing
+  const WorkoutScreen({super.key, required this.isEditing, this.workout});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => WorkoutProvider(),
+      create: (context) {
+        final provider = WorkoutProvider();
+        if (isEditing && workout != null) {
+          provider.initializeWithWorkout(
+              workout!); // Initialize with existing workout
+        }
+        return provider;
+      },
       child: Consumer<WorkoutProvider>(
         builder: (context, workoutProvider, child) {
           return Scaffold(
