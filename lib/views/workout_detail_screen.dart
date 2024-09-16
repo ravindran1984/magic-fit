@@ -57,21 +57,21 @@ class WorkoutDetailScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    OutlinedButton(
+                    ElevatedButton(
                       onPressed: () {
                         viewModel
                             .editWorkout(context); // Navigate to edit screen
                       },
-                      child: const Text('Edit'),
+                      child: const Text(AppStrings.textEdit),
                     ),
                     const SizedBox(width: 20),
-                    OutlinedButton(
+                    ElevatedButton(
                       onPressed: () {
                         viewModel.deleteWorkout(
                             Navigator.of(context, rootNavigator: true)
                                 .context); // Delete and navigate back
                       },
-                      child: const Text('Delete'),
+                      child: const Text(AppStrings.textDelete),
                     ),
                   ],
                 ),

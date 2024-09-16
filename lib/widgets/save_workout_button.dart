@@ -31,10 +31,6 @@ class SaveWorkoutButton extends StatelessWidget {
             // Save the workout with updated sets
             await workoutProvider.saveWorkout(context);
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text(AppStrings.workoutValidMessage)),
-            );
-
             // Notify parent widget to clear the form after saving
             onWorkoutSaved();
           } else {

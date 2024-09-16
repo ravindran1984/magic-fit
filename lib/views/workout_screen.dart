@@ -72,13 +72,6 @@ class WorkoutScreen extends StatelessWidget {
                             );
 
                             workoutProvider.addSet(newSet);
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      'Set ${workoutProvider.editingIndex != null ? 'modified' : 'added'}: $exercise, $weight, $reps')),
-                            );
-
                             workoutProvider.clearForm();
                           }
                         },

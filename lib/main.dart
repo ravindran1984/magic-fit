@@ -5,6 +5,8 @@ import 'package:magic_fit_workout/models/workout.dart';
 import 'package:magic_fit_workout/models/workout_set.dart';
 import 'package:magic_fit_workout/views/workout_list_screen.dart';
 
+import 'constants/constants.dart';
+
 void main() async {
 //Initialize Hive
   await Hive.initFlutter();
@@ -14,15 +16,9 @@ void main() async {
   Hive.registerAdapter(WorkoutSetAdapter());
 
   //Open a box for storing workouts
-  await Hive.openBox<Workout>('workoutsBox');
+  await Hive.openBox<Workout>(AppStrings.workoutBox);
 
   runApp(const MyApp());
-
-/*
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => WorkoutViewModel()..loadSets()),
-  ], child: const MyApp()));
-  */
 }
 
 class MyApp extends StatelessWidget {

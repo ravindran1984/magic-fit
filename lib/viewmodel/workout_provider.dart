@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:magic_fit_workout/constants/constants.dart';
 import 'package:magic_fit_workout/models/workout_set.dart';
 import 'package:magic_fit_workout/utils/form_validators.dart';
 
@@ -29,12 +30,6 @@ class WorkoutProvider with ChangeNotifier {
     notifyListeners();
   }
 
-/*
-  void setEditingWorkout(Workout workout, int workoutIndex) {
-    notifyListeners();
-  }
-*/
-
   void setEditingIndex(int? index) {
     _editingIndex = index;
     if (index != null) {
@@ -45,17 +40,6 @@ class WorkoutProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
-  /*
-  void initializeWithWorkout(Workout workout) {
-    currentWorkout = workout;
-    _sets = List<WorkoutSet>.from(workout.sets);
-    weightController.text = '';
-    repetitionController.text = '';
-    //selectedExercise = null;
-    notifyListeners();
-  }
-*/
 
   // Initialize provider with an existing workout if editing
   void initializeWithWorkout(Workout workout) {
@@ -91,21 +75,21 @@ class WorkoutProvider with ChangeNotifier {
   }
 
   Future<void> saveWorkout(BuildContext context) async {
-    final workoutBox = Hive.box<Workout>('workoutsBox');
+    final workoutBox = Hive.box<Workout>(AppStrings.workoutBox);
 
     if (isEditing && editingWorkout != null) {
       // Use Hive key to update the existing workout
       await workoutBox.put(editingWorkout!.key, editingWorkout!);
 
       // Show the updated values in SnackBar
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-        'Workout updated successfully! Name: ${editingWorkout!.workoutName}, Sets: ${editingWorkout!.sets.length}',
+        AppStrings.workoutUpdateMessage,
       )));
     } else {
       // Add a new workout
       Workout newWorkout = Workout(
-        workoutName: 'Workout', // Add your workout name logic here
+        workoutName: AppStrings.workoutName, // Add your workout name logic here
         savedAt: DateTime.now(),
         sets: sets,
       );
@@ -114,7 +98,7 @@ class WorkoutProvider with ChangeNotifier {
       await workoutBox.add(newWorkout);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Workout created successfully!')),
+        const SnackBar(content: Text(AppStrings.workoutValidMessage)),
       );
     }
 
@@ -130,7 +114,6 @@ class WorkoutProvider with ChangeNotifier {
     _editingIndex = null; // Reset editing index
     weightController.clear(); // Clear weight input
     repetitionController.clear(); // Clear repetitions input
-    //formKey.currentState?.reset(); // Reset form state
     notifyListeners(); // Notify listeners about the changes
   }
 
